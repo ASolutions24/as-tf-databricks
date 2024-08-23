@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>AS.TF.DATABRICKS</PackageId>
+    <Authors>wrap</Authors>
+    <Company>AS</Company>
+    <Product>AS.TF.DATABRICKS</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="terraform-templates\**\*" CopyToPublishDirectory="Always" />
+    <Content Include="scripts\**\*" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+</Project>
