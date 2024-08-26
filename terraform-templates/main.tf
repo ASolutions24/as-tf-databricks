@@ -44,7 +44,8 @@ provider "databricks" {
 }
 
 module "rg" {
-  source = "./modules/resource-group"
+  #source = "./modules/resource-group"
+  source = "../../a/tf-modules/content/modules/resource-group"
   owner = var.owner
   location = var.location
   project = var.project
@@ -54,7 +55,7 @@ module "rg" {
 }
 
 module "network" {
-  source = "./modules/network"
+  source = "../../a/tf-modules/content/modules/network"
   env = var.env
   project = var.project
   address_space = var.address_space
@@ -65,7 +66,7 @@ module "network" {
 }
 
 module "firewall" {
-  source = "./modules/firewall"
+  source = "../../a/tf-modules/content/modules/firewall"
   env = var.env
   project = var.project
   location = var.location
@@ -76,7 +77,7 @@ module "firewall" {
 }
 
 module "storageaccount" {
-  source = "./modules/storageaccount"
+  source = "../../a/tf-modules/content/modules/storageaccount"
   env = var.env
   project = var.project
   location = var.location
@@ -86,7 +87,7 @@ module "storageaccount" {
 }
 
 module "keyvault" {
-  source = "./modules/keyvault"
+  source = "../../a/tf-modules/content/modules/keyvault"
   env = var.env
   project = var.project
   location = var.location
@@ -97,7 +98,7 @@ module "keyvault" {
 }
 
 module "adb" {
-  source = "./modules/adb"
+  source = "../../a/tf-modules/content/modules/adb"
   env = var.env
   project = var.project
   location = var.location
