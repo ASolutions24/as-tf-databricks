@@ -12,7 +12,8 @@ stages:
     displayName: Terraform_Plan_AzDevOpsEnv
     environment: 'as_dev'
     pool:
-      vmImage: windows-latest
+      #vmImage: windows-latest
+      name: AS-Windows
     #variables:
     #- group: ${{ environment.variableGroupName }}
     strategy:

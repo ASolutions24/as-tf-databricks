@@ -54,11 +54,13 @@ jobs:
       - name: Super Linter
         uses: github/super-linter@v4
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_JSCPD: false 
           VALIDATE_YAML: false
+          VALIDATE_TERRAFORM_TFLINT: false
+          VALIDATE_POWERSHELL: false
           FILTER_REGEX_EXCLUDE: .*.md
           #VALIDATE_POWERSHELL: false # ENVVAR has to be decrypted and passed as string. This will be then secured and be used for KV secret creation.
           # Fails while trying to download module which can't happen in GITHUB. Artifacts are available in Azure DevOps and this will be captured in TF_PLAN stage.
