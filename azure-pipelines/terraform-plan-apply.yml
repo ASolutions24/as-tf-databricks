@@ -43,3 +43,5 @@ stages:
               displayName: "PowerShell-Deploy-Artifact-Version"
               name: "PowerShell_Deploy_Artifact_Version"
               failOnStderr: true
+              env:
+                ARM_CLIENT_SECRET: 'oi18Q~ozAtm-NFQ0EeitsBUmVT6MQ6orwHl5rcUf'
