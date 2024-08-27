@@ -1,0 +1,45 @@
+parameters:
+- name: environments
+  type: object
+stages:
+- ${{each environment in parameters.environments}}:
+  - stage: Terraform_Plan_${{ environment.environmentName }}
+    displayName: Terraform_Plan_${{ environment.environmentName }}
+    jobs:
+    # Uses Azure DevOps environments approvals - fwd_tst1, fwd_tst2 etc - approval members will be fwp\contributors
+    # Uses variable group approvals for stage, prod etc - SG-AA-OPS-AzureDevOps-FWD-Deployment-Approvers-PRD group members can approve.
+    - deployment: Terraform_Plan_${{ environment.environmentName }}
+      displayName: Terraform_Plan_AzDevOpsEnv_${{ environment.environmentName }}
+      environment: ${{ environment.environmentName }}
+      pool:
+        name: ${{ environment.terraform_pool_name }}
+      variables:
+      - group: ${{ environment.platformVariableGroupName }}
+      - group: ${{ environment.adbSPNVariableGroupName }}
+      - group: ${{ environment.variableGroupName }} # This order is important as TF State VAR is overridden with the last VG.
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - checkout: self
+            - task: DownloadPackage@1
+              condition: and(succeeded(), ne('${{ environment.appVersionToDeploy }}', 'deploy-feature-branch-code'), ne('${{ environment.appVersionToDeploy }}', 'hotfix'))
+              inputs:
+                packageType: "nuget" # 'nuget' Options: maven, npm, nuget, pypi, upack
+                feed: 'Production/as-tf-databricks'
+                definition: 'AS.TF.DATABRICKS'
+                version: 'latest'
+                downloadPath: "$(System.ArtifactsDirectory)"
+            - task: DownloadPackage@1
+              inputs:
+                packageType: "nuget" # 'nuget' Options: maven, npm, nuget, pypi, upack
+                feed: 'Production/as-tf-core-modules'
+                definition: 'AS-TF-CORE-MODULES'
+                version: 'latest'
+                downloadPath: "$(System.ArtifactsDirectory)/tf-modules"
+            - pwsh: $(System.ArtifactsDirectory)/content/scripts/Terraform-Deployment-Plan-Or-Apply.ps1 `
+              workingDirectory: "$(Agent.BuildDirectory)"
+              #condition: and(succeeded(), ne('${{ environment.appVersionToDeploy }}', 'deploy-feature-branch-code'), ne('${{ environment.appVersionToDeploy }}', 'hotfix'))
+              displayName: "PowerShell-Deploy-Artifact-Version"
+              name: "PowerShell_Deploy_Artifact_Version"
+              failOnStderr: true
