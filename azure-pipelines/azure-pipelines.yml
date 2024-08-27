@@ -11,21 +11,13 @@ parameters:
   - appVersionToDeploy: 'deploy-feature-branch-code'
     terraformModuleVersionToUse: 'latest'
     environmentName: dev
-    variableGroupName: cfs-data-firstwrap-databricks-ingestion-dev
-    platformVariableGroupName: cfs-data-platform-terraform-spn-np
-    adbSPNVariableGroupName: cfs-data-firstwrap-databricks-infra-dev
-    service_connection_name: sc-subsc-np-fwd-001
     bicep_pool_name: Windows-NP
     terraform_pool_name: Windows-NP
     requiredTerraformVersion: 1.3.6
     # No approvals required - for automated PR validation.
   - appVersionToDeploy: 'latest'
-
     terraformModuleVersionToUse: 'latest'
     environmentName: as_dev
-    variableGroupName: cfs-data-firstwrap-databricks-ingestion-tst1
-    platformVariableGroupName: cfs-data-platform-terraform-spn-np
-    adbSPNVariableGroupName: cfs-data-firstwrap-databricks-infra-tst1
     service_connection_name: HubServiceConnection
     bicep_pool_name: AS-Windows
     terraform_pool_name: AS-Windows

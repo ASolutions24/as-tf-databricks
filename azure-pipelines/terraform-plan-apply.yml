@@ -13,17 +13,17 @@ stages:
       environment: ${{ environment.environmentName }}
       pool:
         name: ${{ environment.terraform_pool_name }}
-      variables:
-      - group: ${{ environment.platformVariableGroupName }}
-      - group: ${{ environment.adbSPNVariableGroupName }}
-      - group: ${{ environment.variableGroupName }} # This order is important as TF State VAR is overridden with the last VG.
+      #variables:
+      #- group: ${{ environment.platformVariableGroupName }}
+      #- group: ${{ environment.adbSPNVariableGroupName }}
+      #- group: ${{ environment.variableGroupName }} # This order is important as TF State VAR is overridden with the last VG.
       strategy:
         runOnce:
           deploy:
             steps:
             - checkout: self
             - task: DownloadPackage@1
-              condition: and(succeeded(), ne('${{ environment.appVersionToDeploy }}', 'deploy-feature-branch-code'), ne('${{ environment.appVersionToDeploy }}', 'hotfix'))
+              #condition: and(succeeded(), ne('${{ environment.appVersionToDeploy }}', 'deploy-feature-branch-code'), ne('${{ environment.appVersionToDeploy }}', 'hotfix'))
               inputs:
                 packageType: "nuget" # 'nuget' Options: maven, npm, nuget, pypi, upack
                 feed: 'Production/as-tf-databricks'
