@@ -45,3 +45,6 @@ stages:
               failOnStderr: true
               env:
                 ARM_CLIENT_SECRET: 'oi18Q~ozAtm-NFQ0EeitsBUmVT6MQ6orwHl5rcUf'
+                ARM_CLIENT_ID: 'e406117e-87ee-43b7-982e-03fe371a2fc5'
+                ARM_SUBSCRIPTION_ID: '39aca73e-1d25-4edf-84d5-ebe0397a816b'
+                ARM_TENANT_ID: '007f5007-e452-411f-ad5a-09aebef34a20'
